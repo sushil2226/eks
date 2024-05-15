@@ -16,6 +16,11 @@ Step 2
 1. Create IAM role
 2. Create node groupe
 
+Step 3
+# Connect to EKS 
+`aws eks --region <region code > update-kubeconfig --name <eks cluster name>`
+
+
 .. 
 # addons 
 To store terraform statefile at s3 , use `backend`block
@@ -28,3 +33,23 @@ terraform {
     dynamodb_table = "my-lock-table"              # DynamoDB table for state locking   -- optional
   }
 }   
+
+
+# Application deployment on EKS 
+
+# Create po in eks 
+k run nginx --image=nginx 
+
+# expose pod port 
+k port-forward pod/nginx 8080:80
+
+# to check if nginx web server working , from laptop browser hit 
+http://localhost:8080/
+
+# To connect/go inside the pod 
+k exec -it nginx -- /bin/bash
+
+# Helm 
+
+
+
